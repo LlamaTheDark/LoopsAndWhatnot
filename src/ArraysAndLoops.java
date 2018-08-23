@@ -33,10 +33,10 @@ public class ArraysAndLoops {
 	}
 
 	int getMaxOfArray(int[] a) {
-		int max = a[0];
+		int max = a[0]; // the first number tested is always going to be the max until you test for another number
 		for (int i = 0; i < a.length; i++) {
 			if (a[i] > max) {
-				max = a[i];
+				max = a[i]; // assigns largest value to the "max" value
 			}
 		}
 		return max;
@@ -45,7 +45,7 @@ public class ArraysAndLoops {
 	void printArray(int[] a) {
 		System.out.print("[");
 		for (int i = 0; i < a.length; i++) {
-			if (i != a.length - 1) {
+			if (i != a.length - 1) { // prints a comma after every number except last one (it will print a bracket instead)
 				System.out.print(a[i] + ",");
 			} else {
 				System.out.print(a[i]);
@@ -56,9 +56,8 @@ public class ArraysAndLoops {
 
 	int[] populatedArray(int[] a, int maxNum) {
 		Random rand = new Random();
-
 		for (int i = 0; i < a.length; i++) {
-			a[i] = rand.nextInt(maxNum)+1;
+			a[i] = rand.nextInt(maxNum)+1; // '+1': will go from 1-100 instead of 0-99 when 100 is placed as argument.
 		}
 		return a;
 	}
@@ -66,7 +65,7 @@ public class ArraysAndLoops {
 	int sumOfArray(int[] a) {
 		int sum = 0;
 		for (int i : a) {
-			sum += i;
+			sum += i; // adds every value into one variable
 		}
 		return sum;
 	}
@@ -75,20 +74,20 @@ public class ArraysAndLoops {
 		boolean inOrder;
 		int n = 1;
 		int subNum;
-		switch (direction) {
-		case "bts":
+		switch (direction) { // this is only to switch between largest to smallest or smallest to largest
+		case "bts":          // could probably be done a lot more efficiently.
 
 			do {
 				inOrder = true;
-				for (int i = 0; i < a.length - n; i++) {
-					if (a[i] < a[i + 1]) {
+				for (int i = 0; i < a.length - n; i++) { // - n because you know for sure that the last value
+					if (a[i] < a[i + 1]) {               // that was checked is for sure the highest one
 						inOrder = false;
 						subNum = a[i + 1];
 						a[i + 1] = a[i];
 						a[i] = subNum;
 					}
 				}
-				n++;
+				n++; // n is incremented according to how many runs of the do-while loop.
 			} while (!inOrder);
 
 			break;
@@ -115,7 +114,7 @@ public class ArraysAndLoops {
 	}
 
 	boolean isPalindrome(int[] a) {
-		for (int j = 0; j < a.length/2; j++) {
+		for (int j = 0; j < a.length/2; j++) { // ÷ by 2 because you only have to go to half the value
 			if (a[j] != a[(a.length-1)-j]) {
 				return false;
 			}
@@ -128,40 +127,40 @@ public class ArraysAndLoops {
 		for(int i = 0; i < a.length; i++) {
 			for(int j = 0; j < a.length; j++) {
 				if (i != j && a[i] == a[j]) {
-					return true;
+					return true; // if there are duplicates, then it's true
 				}
 			}
 		}
-		return false;
+		return false; // if it get's to this point you know it's false
 	}
 
 	int[] longestSubSeqOdd(int[] a) {
-		int subSeqLength = 0;
+		int subSeqLength = 0; // had to create separate length variables because subSeq.length would return 100.
 		int longestSeqLength = subSeqLength;
 		int[] subSeq = new int[100];
 		int[] longestSubSeq = new int[100];
 		for(int i = 0; i < a.length; i++) {
-			if(a[i]%2==1) {
-				subSeq[subSeqLength] = a[i];
-				subSeqLength++;
-				if(subSeqLength > longestSeqLength) {
-					longestSeqLength = subSeqLength;
-					longestSubSeq = subSeq;
+			if(a[i]%2==1) { 						 // if the number is odd...
+				subSeq[subSeqLength] = a[i];		 // add it to the current subSequence for testing
+				subSeqLength++;						 // then increment the length, manually, by one
+				if(subSeqLength > longestSeqLength) {// if the current subSequence is longer than the previously
+					longestSeqLength = subSeqLength; // declared 'longest subSequence' then make set the new longest
+					longestSubSeq = subSeq;			 // subsequence to be the other subSequence in question.
 				}
 			}else{
-				 subSeqLength = 0;
+				 subSeqLength = 0; // if it's not odd, then begin testing a new subsequence 
 			}
 		}
 		return Arrays.copyOfRange(longestSubSeq, 0, longestSeqLength);
 	}
 
 	int findFirstIndex(int[] a, int value) { // returns index or -1
-		for (int i = 0; i < a.length; i++) {
+		for (int i = 0; i < a.length; i++) { // loops through every value to see if it equal to the desired number
 			if (a[i] == value) {
-				return i;
+				return i;					 // if it is, then return the index of that number
 			}
 		}
-		return -1;
+		return -1;							 // if it's not then return -1
 	}
 }
 
